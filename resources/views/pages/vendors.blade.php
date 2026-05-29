@@ -23,120 +23,36 @@
         </button>
 </div>
 <div class="vendors-grid">
+@foreach($vendors as $vendor)
+@php
+  $colors = ['teal', 'accent', 'coral', 'amber', 'purple', 'pink'];
+  $color = $colors[$loop->index % count($colors)];
+  $bgColor = 'var(--' . $color . '-bg)';
+  $textColor = 'var(--' . $color . ')';
+@endphp
 <div class="vendor-card">
 <div class="vendor-card-header">
-<div class="vendor-avatar" style="background:var(--teal-bg);color:var(--teal)">SG</div>
+<div class="vendor-avatar" style="background:{{ $bgColor }};color:{{ $textColor }}">{{ $vendor->initials }}</div>
 <div>
-<div class="vendor-card-name">Spice Garden</div>
-<div class="vendor-card-type"><span style="width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block"></span> Restaurant · Gandhinagar</div>
+<div class="vendor-card-name">{{ $vendor->name }}</div>
+<div class="vendor-card-type">
+  <span style="width:6px;height:6px;border-radius:50%;background:{{ $vendor->status == 'active' ? 'var(--teal)' : ($vendor->status == 'warning' ? 'var(--amber)' : 'var(--red)') }};display:inline-block"></span> 
+  {{ $vendor->type }} · {{ $vendor->status }}
+</div>
 </div>
 </div>
 <div class="vendor-kpis">
-<div class="kpi"><div class="kpi-val">₹48,200</div><div class="kpi-key">Today's sales</div></div>
-<div class="kpi"><div class="kpi-val">142</div><div class="kpi-key">Orders today</div></div>
-<div class="kpi"><div class="kpi-val">₹8.2L</div><div class="kpi-key">This month</div></div>
+<div class="kpi"><div class="kpi-val">₹{{ number_format($vendor->total_revenue) }}</div><div class="kpi-key">Total Revenue</div></div>
+<div class="kpi"><div class="kpi-val">{{ $vendor->active_users }}</div><div class="kpi-key">Active Users</div></div>
+<div class="kpi"><div class="kpi-val">{{ $vendor->commission }}</div><div class="kpi-key">Commission</div></div>
 <div class="kpi"><div class="kpi-val">4.8 ★</div><div class="kpi-key">Rating</div></div>
 </div>
 <div class="vendor-footer">
-<div><div class="commission-tag">Commission</div><div class="commission-val">12% · ₹5,784</div></div>
-<button class="mini-btn" onclick="showToast('Opening Spice Garden details…')">Manage →</button>
+<div><div class="commission-tag">Commission</div><div class="commission-val">{{ $vendor->commission }}</div></div>
+<button class="mini-btn" onclick="showToast('Opening {{ addslashes($vendor->name) }} details…')">Manage →</button>
 </div>
 </div>
-<div class="vendor-card">
-<div class="vendor-card-header">
-<div class="vendor-avatar" style="background:var(--accent-glow);color:var(--accent)">SI</div>
-<div>
-<div class="vendor-card-name">Sunrise Inn</div>
-<div class="vendor-card-type"><span style="width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block"></span> Hotel · Ahmedabad</div>
-</div>
-</div>
-<div class="vendor-kpis">
-<div class="kpi"><div class="kpi-val">₹62,000</div><div class="kpi-key">Today's revenue</div></div>
-<div class="kpi"><div class="kpi-val">19/28</div><div class="kpi-key">Rooms occupied</div></div>
-<div class="kpi"><div class="kpi-val">₹14.5L</div><div class="kpi-key">This month</div></div>
-<div class="kpi"><div class="kpi-val">68%</div><div class="kpi-key">Occupancy</div></div>
-</div>
-<div class="vendor-footer">
-<div><div class="commission-tag">Commission</div><div class="commission-val">8% · ₹4,960</div></div>
-<button class="mini-btn" onclick="showToast('Opening Sunrise Inn details…')">Manage →</button>
-</div>
-</div>
-<div class="vendor-card">
-<div class="vendor-card-header">
-<div class="vendor-avatar" style="background:var(--coral-bg);color:var(--coral)">MC</div>
-<div>
-<div class="vendor-card-name">MedCare Clinic</div>
-<div class="vendor-card-type"><span style="width:6px;height:6px;border-radius:50%;background:var(--amber);display:inline-block"></span> Hospital · Gandhinagar</div>
-</div>
-</div>
-<div class="vendor-kpis">
-<div class="kpi"><div class="kpi-val">₹29,400</div><div class="kpi-key">Today's bills</div></div>
-<div class="kpi"><div class="kpi-val">67</div><div class="kpi-key">Patients today</div></div>
-<div class="kpi"><div class="kpi-val">₹6.1L</div><div class="kpi-key">This month</div></div>
-<div class="kpi"><div class="kpi-val">4.6 ★</div><div class="kpi-key">Rating</div></div>
-</div>
-<div class="vendor-footer">
-<div><div class="commission-tag">Commission</div><div class="commission-val">5% · ₹1,470</div></div>
-<button class="mini-btn" onclick="showToast('Opening MedCare details…')">Manage →</button>
-</div>
-</div>
-<div class="vendor-card">
-<div class="vendor-card-header">
-<div class="vendor-avatar" style="background:var(--amber-bg);color:var(--amber)">GX</div>
-<div>
-<div class="vendor-card-name">Gujarat Express</div>
-<div class="vendor-card-type"><span style="width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block"></span> Bus · Surat</div>
-</div>
-</div>
-<div class="vendor-kpis">
-<div class="kpi"><div class="kpi-val">₹9,500</div><div class="kpi-key">Today's sales</div></div>
-<div class="kpi"><div class="kpi-val">38/42</div><div class="kpi-key">Seats booked</div></div>
-<div class="kpi"><div class="kpi-val">₹2.8L</div><div class="kpi-key">This month</div></div>
-<div class="kpi"><div class="kpi-val">90%</div><div class="kpi-key">Occupancy</div></div>
-</div>
-<div class="vendor-footer">
-<div><div class="commission-tag">Commission</div><div class="commission-val">10% · ₹950</div></div>
-<button class="mini-btn" onclick="showToast('Opening Gujarat Express details…')">Manage →</button>
-</div>
-</div>
-<div class="vendor-card">
-<div class="vendor-card-header">
-<div class="vendor-avatar" style="background:var(--purple-bg);color:var(--purple)">PD</div>
-<div>
-<div class="vendor-card-name">The Punjabi Dhaba</div>
-<div class="vendor-card-type"><span style="width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block"></span> Restaurant · Surat</div>
-</div>
-</div>
-<div class="vendor-kpis">
-<div class="kpi"><div class="kpi-val">₹0</div><div class="kpi-key">Today's sales</div></div>
-<div class="kpi"><div class="kpi-val">Offline</div><div class="kpi-key">Status</div></div>
-<div class="kpi"><div class="kpi-val">₹5.4L</div><div class="kpi-key">Last month</div></div>
-<div class="kpi"><div class="kpi-val">4.5 ★</div><div class="kpi-key">Rating</div></div>
-</div>
-<div class="vendor-footer">
-<div><div class="commission-tag">Commission</div><div class="commission-val">12% · —</div></div>
-<button class="mini-btn" onclick="showToast('Sending re-activation ping to Punjabi Dhaba…')">Re-activate</button>
-</div>
-</div>
-<div class="vendor-card">
-<div class="vendor-card-header">
-<div class="vendor-avatar" style="background:var(--pink-bg);color:var(--pink)">CH</div>
-<div>
-<div class="vendor-card-name">City Hospital</div>
-<div class="vendor-card-type"><span style="width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block"></span> Hospital · Vadodara</div>
-</div>
-</div>
-<div class="vendor-kpis">
-<div class="kpi"><div class="kpi-val">₹41,800</div><div class="kpi-key">Today's bills</div></div>
-<div class="kpi"><div class="kpi-val">112</div><div class="kpi-key">Patients today</div></div>
-<div class="kpi"><div class="kpi-val">₹9.3L</div><div class="kpi-key">This month</div></div>
-<div class="kpi"><div class="kpi-val">4.7 ★</div><div class="kpi-key">Rating</div></div>
-</div>
-<div class="vendor-footer">
-<div><div class="commission-tag">Commission</div><div class="commission-val">5% · ₹2,090</div></div>
-<button class="mini-btn" onclick="showToast('Opening City Hospital details…')">Manage →</button>
-</div>
-</div>
+@endforeach
 </div>
 </div>
 </div>

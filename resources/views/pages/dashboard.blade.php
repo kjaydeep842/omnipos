@@ -114,46 +114,22 @@
 </tr>
 </thead>
 <tbody>
+@foreach($topVendors as $vendor)
+@php
+  $colors = ['teal', 'accent', 'coral', 'amber', 'purple', 'pink'];
+  $color = $colors[$loop->index % count($colors)];
+  $bgColor = 'var(--' . $color . '-bg)';
+  $textColor = 'var(--' . $color . ')';
+@endphp
 <tr>
-<td><div class="vendor-name-cell"><div class="mini-avatar" style="background:var(--teal-bg);color:var(--teal)">SG</div><div><div class="vendor-cell-name">Spice Garden</div><div class="vendor-cell-type">Gandhinagar, GJ</div></div></div></td>
-<td>Restaurant</td>
-<td style="color:var(--text1);font-weight:600">₹48,200</td>
-<td>142</td>
-<td style="color:var(--amber);font-weight:600">₹5,784</td>
-<td><span class="status-pill active"><span class="status-dot2"></span>Active</span></td>
+<td><div class="vendor-name-cell"><div class="mini-avatar" style="background:{{ $bgColor }};color:{{ $textColor }}">{{ $vendor->initials }}</div><div><div class="vendor-cell-name">{{ $vendor->name }}</div><div class="vendor-cell-type">{{ $vendor->type }}</div></div></div></td>
+<td>{{ $vendor->type }}</td>
+<td style="color:var(--text1);font-weight:600">₹{{ number_format($vendor->total_revenue) }}</td>
+<td>{{ $vendor->active_users }}</td>
+<td style="color:var(--amber);font-weight:600">{{ $vendor->commission }}</td>
+<td><span class="status-pill {{ $vendor->status == 'active' ? 'active' : ($vendor->status == 'warning' ? 'warning' : 'inactive') }}"><span class="status-dot2"></span>{{ ucfirst($vendor->status) }}</span></td>
 </tr>
-<tr>
-<td><div class="vendor-name-cell"><div class="mini-avatar" style="background:var(--accent-glow);color:var(--accent)">SI</div><div><div class="vendor-cell-name">Sunrise Inn</div><div class="vendor-cell-type">Ahmedabad, GJ</div></div></div></td>
-<td>Hotel</td>
-<td style="color:var(--text1);font-weight:600">₹62,000</td>
-<td>19 rooms</td>
-<td style="color:var(--amber);font-weight:600">₹4,960</td>
-<td><span class="status-pill active"><span class="status-dot2"></span>Active</span></td>
-</tr>
-<tr>
-<td><div class="vendor-name-cell"><div class="mini-avatar" style="background:var(--coral-bg);color:var(--coral)">MC</div><div><div class="vendor-cell-name">MedCare Clinic</div><div class="vendor-cell-type">Gandhinagar, GJ</div></div></div></td>
-<td>Hospital</td>
-<td style="color:var(--text1);font-weight:600">₹29,400</td>
-<td>67 patients</td>
-<td style="color:var(--amber);font-weight:600">₹1,470</td>
-<td><span class="status-pill active"><span class="status-dot2"></span>Active</span></td>
-</tr>
-<tr>
-<td><div class="vendor-name-cell"><div class="mini-avatar" style="background:var(--amber-bg);color:var(--amber)">GX</div><div><div class="vendor-cell-name">Gujarat Express</div><div class="vendor-cell-type">Surat, GJ</div></div></div></td>
-<td>Bus Booking</td>
-<td style="color:var(--text1);font-weight:600">₹9,500</td>
-<td>38 seats</td>
-<td style="color:var(--amber);font-weight:600">₹950</td>
-<td><span class="status-pill warning"><span class="status-dot2"></span>Low seats</span></td>
-</tr>
-<tr>
-<td><div class="vendor-name-cell"><div class="mini-avatar" style="background:var(--purple-bg);color:var(--purple)">PD</div><div><div class="vendor-cell-name">The Punjabi Dhaba</div><div class="vendor-cell-type">Surat, GJ</div></div></div></td>
-<td>Restaurant</td>
-<td style="color:var(--text1);font-weight:600">₹31,200</td>
-<td>94</td>
-<td style="color:var(--amber);font-weight:600">₹3,744</td>
-<td><span class="status-pill inactive"><span class="status-dot2"></span>Offline</span></td>
-</tr>
+@endforeach
 </tbody>
 </table>
 </div>

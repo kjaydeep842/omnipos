@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vendor;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.dashboard');
+        $topVendors = Vendor::orderBy('total_revenue', 'desc')->take(3)->get();
+        return view('pages.dashboard', compact('topVendors'));
     }
 }

@@ -22,9 +22,9 @@
 <div class="form-group">
 <label>Vendor / Shop</label>
 <select class="form-control">
-<option>Spice Garden</option>
-<option>The Punjabi Dhaba</option>
-<option>City Restaurant</option>
+@foreach($vendors as $vendor)
+<option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+@endforeach
 </select>
 </div>
 <div class="form-group">
@@ -113,34 +113,12 @@
 <div class="invoice-summary">
 <div class="summary-title">Recent Invoices</div>
 <div class="recent-inv">
+@foreach($invoices as $invoice)
 <div class="inv-item">
-<div><div class="inv-num">#INV-0427</div><div class="inv-vendor">Spice Garden · Table 5</div></div>
-<div><div class="inv-amount">₹2,340</div><div class="inv-status"><span class="status-pill active" style="font-size:10px"><span class="status-dot2"></span>Paid</span></div></div>
+<div><div class="inv-num">{{ $invoice->invoice_number }}</div><div class="inv-vendor">{{ $invoice->vendor->name ?? 'Unknown Vendor' }}</div></div>
+<div><div class="inv-amount">₹{{ number_format($invoice->amount) }}</div><div class="inv-status"><span class="status-pill {{ $invoice->status == 'Paid' ? 'active' : 'warning' }}" style="font-size:10px"><span class="status-dot2"></span>{{ $invoice->status }}</span></div></div>
 </div>
-<div class="inv-item">
-<div><div class="inv-num">#INV-0426</div><div class="inv-vendor">Sunrise Inn · Room 204</div></div>
-<div><div class="inv-amount">₹5,200</div><div class="inv-status"><span class="status-pill active" style="font-size:10px"><span class="status-dot2"></span>Paid</span></div></div>
-</div>
-<div class="inv-item">
-<div><div class="inv-num">#INV-0425</div><div class="inv-vendor">MedCare · OPD</div></div>
-<div><div class="inv-amount">₹850</div><div class="inv-status"><span class="status-pill active" style="font-size:10px"><span class="status-dot2"></span>Paid</span></div></div>
-</div>
-<div class="inv-item">
-<div><div class="inv-num">#INV-0424</div><div class="inv-vendor">Gujarat Express</div></div>
-<div><div class="inv-amount">₹9,500</div><div class="inv-status"><span class="status-pill active" style="font-size:10px"><span class="status-dot2"></span>Paid</span></div></div>
-</div>
-<div class="inv-item">
-<div><div class="inv-num">#INV-0423</div><div class="inv-vendor">Punjabi Dhaba · Table 9</div></div>
-<div><div class="inv-amount">₹3,200</div><div class="inv-status"><span class="status-pill warning" style="font-size:10px"><span class="status-dot2"></span>Pending</span></div></div>
-</div>
-<div class="inv-item">
-<div><div class="inv-num">#INV-0422</div><div class="inv-vendor">City Hospital · IPD</div></div>
-<div><div class="inv-amount">₹18,400</div><div class="inv-status"><span class="status-pill active" style="font-size:10px"><span class="status-dot2"></span>Paid</span></div></div>
-</div>
-<div class="inv-item">
-<div><div class="inv-num">#INV-0421</div><div class="inv-vendor">Sunrise Inn · Room 110</div></div>
-<div><div class="inv-amount">₹7,800</div><div class="inv-status"><span class="status-pill inactive" style="font-size:10px"><span class="status-dot2"></span>Draft</span></div></div>
-</div>
+@endforeach
 </div>
 </div>
 </div>
