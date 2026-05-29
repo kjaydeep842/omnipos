@@ -196,6 +196,6 @@ function buildRooms() {
 // ── Init
 buildChart();
 buildHeatmap();
-buildRooms();
+// buildRooms(); // Disabled to allow Blade dynamic rendering
 calcTotal();
 

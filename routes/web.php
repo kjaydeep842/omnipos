@@ -19,5 +19,8 @@ Route::post('/vendors', [VendorController::class, 'store'])->name('vendors.store
 Route::put('/vendors/{vendor}', [VendorController::class, 'update'])->name('vendors.update');
 Route::delete('/vendors/{vendor}', [VendorController::class, 'destroy'])->name('vendors.destroy');
 Route::get('/booking', [BookingController::class, 'index'])->name('booking');
+Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::put('/booking/{booking}', [BookingController::class, 'update'])->name('booking.update');
+Route::delete('/booking/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
 Route::get('/plans', [PlanController::class, 'index'])->name('plans');
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
