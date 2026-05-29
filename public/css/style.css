@@ -777,3 +777,15 @@ option { background: var(--bg3); }
   .analytics-stats { grid-template-columns: repeat(2, 1fr); }
 }
 
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(4px); }
+.modal-overlay.show { display: flex; opacity: 1; }
+.modal { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); width: 90%; max-width: 500px; padding: 24px; transform: translateY(20px); transition: transform 0.3s; }
+.modal-overlay.show .modal { transform: translateY(0); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-title { font-size: 18px; font-weight: 600; color: var(--text1); }
+.modal-close { background: none; border: none; color: var(--text3); font-size: 20px; cursor: pointer; }
+.modal-close:hover { color: var(--text1); }
+.modal-body { display: flex; flex-direction: column; gap: 16px; }
+.modal-footer { margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px; }

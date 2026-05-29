@@ -81,5 +81,19 @@
 <span id="toast-msg">Action completed</span>
 </div>
 <script src="{{ asset('js/script.js') }}"></script>
+@if(session('success'))
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    showToast('{{ session('success') }}');
+  });
+</script>
+@endif
+@if($errors->any())
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    showToast('Error: {{ $errors->first() }}');
+  });
+</script>
+@endif
 </body>
 </html>

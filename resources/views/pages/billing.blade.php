@@ -16,12 +16,14 @@
 <div class="invoice-builder">
 <div class="ib-header">
 <div class="ib-title">New Invoice — Restaurant POS</div>
-<span style="font-size:12px;color:var(--accent);font-weight:600">#INV-2026-0428</span>
+<span style="font-size:12px;color:var(--accent);font-weight:600">Draft</span>
 </div>
+<form action="{{ route('billing.store') }}" method="POST">
+@csrf
 <div class="invoice-meta">
 <div class="form-group">
 <label>Vendor / Shop</label>
-<select class="form-control">
+<select class="form-control" name="vendor_id" required>
 @foreach($vendors as $vendor)
 <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
 @endforeach
@@ -46,7 +48,9 @@
 </div>
 <div class="form-group">
 <label>Invoice Date</label>
-<input class="form-control" type="date" value="2026-05-29"/>
+<input class="form-control" type="date" name="date" value="{{ date('Y-m-d') }}" required/>
+<input type="hidden" name="amount" id="formAmount" value="1218">
+<input type="hidden" name="status" value="Paid">
 </div>
 <div class="form-group">
 <label>Payment Mode</label>
@@ -105,18 +109,21 @@
 <div class="total-row grand"><span>Grand Total</span><span id="grand-total">₹1,218</span></div>
 </div>
 <div class="invoice-actions">
-<button class="btn-ghost" onclick="showToast('Invoice saved as draft!')"><i class="fas fa-save" style="margin-right:6px"></i>Save Draft</button>
-<button class="btn-primary" onclick="showToast('Invoice printed &amp; sent to customer via WhatsApp!')"><i class="fas fa-print" style="margin-right:6px"></i>Print &amp; Generate</button>
+<button type="button" class="btn-ghost" onclick="showToast('Invoice saved as draft!')"><i class="fas fa-save" style="margin-right:6px"></i>Save Draft</button>
+<button type="submit" class="btn-primary"><i class="fas fa-print" style="margin-right:6px"></i>Generate Invoice</button>
 </div>
+</form>
 </div>
 <!-- Recent Invoices sidebar -->
 <div class="invoice-summary">
 <div class="summary-title">Recent Invoices</div>
 <div class="recent-inv">
 @foreach($invoices as $invoice)
-<div class="inv-item">
+<div class="inv-item" style="justify-content: space-between;">
 <div><div class="inv-num">{{ $invoice->invoice_number }}</div><div class="inv-vendor">{{ $invoice->vendor->name ?? 'Unknown Vendor' }}</div></div>
-<div><div class="inv-amount">₹{{ number_format($invoice->amount) }}</div><div class="inv-status"><span class="status-pill {{ $invoice->status == 'Paid' ? 'active' : 'warning' }}" style="font-size:10px"><span class="status-dot2"></span>{{ $invoice->status }}</span></div></div>
+<div style="display:flex;align-items:center;gap:10px;"><div class="inv-amount">₹{{ number_format($invoice->amount) }}</div><div class="inv-status"><span class="status-pill {{ $invoice->status == 'Paid' ? 'active' : 'warning' }}" style="font-size:10px"><span class="status-dot2"></span>{{ $invoice->status }}</span></div>
+<form action="{{ route('billing.destroy', $invoice->id) }}" method="POST" style="margin:0;" onsubmit="return confirm('Delete this invoice?');">@csrf @method('DELETE')<button type="submit" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:12px;"><i class="fas fa-trash"></i></button></form>
+</div>
 </div>
 @endforeach
 </div>
